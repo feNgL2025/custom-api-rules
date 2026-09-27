@@ -14,6 +14,10 @@ https://raw.githubusercontent.com/feNgL2025/custom-api-rules/main/geo/geosite/ge
 
 保持该项原有的“反转规则”状态。不要把它作为一条新 URL 追加。当前 ZodAccess 配置会引用 `geosite-geolocation-!cn` 标签，将它匹配的域名交给代理，并跳过后面的 `resolve` 步骤；额外添加的 `custom-api` 标签目前没有对应的路由规则。
 
+`!cn` 是规则集名称里“非 CN”的意思，不等同于界面的“反转规则”开关。本机原有开关为开启，替换 URL 时保持原样；最终以生成的路由规则和连接日志为准。
+
+如果更换 URL 后仍走旧的 DNS 路由，可能是 sing-box 仍在使用缓存的旧规则。先退出 ZodAccess，备份 `%LOCALAPPDATA%\ZodAccess\singbox\cache.db`，再删除原缓存文件并启动 ZodAccess。应用会重新下载规则；确认日志出现 `updated rule-set geosite-geolocation-!cn` 后再测试。此操作会清空该缓存文件中的其他缓存项目，先留好备份。
+
 这份合并规则集是 2026-09-27 的上游快照。上游名单更新时，需要重新合并并编译。编译命令：
 
 ```text
